@@ -1,0 +1,11 @@
+{
+  "version": "1.0.1",
+  "notes_en": "Neramit Cut 1.0.1\n- Online updates for installed and portable copies through GitHub Releases.\n- Signed installer and portable downloads, verified with ECDSA P-256 and SHA-256.\n- Fix replacement and rollback when the current user has Modify permission without permission to change file ACLs.\n- Restore the previous portable executable when the updated program repeatedly exits immediately.",
+  "notes_th": "Neramit Cut 1.0.1\n- อัปเดตออนไลน์ผ่าน GitHub Releases รองรับทั้งรุ่นติดตั้งและ Portable\n- ตรวจลายเซ็น ECDSA P-256 และ SHA-256 ก่อนใช้งานไฟล์อัปเดต\n- แก้การแทนไฟล์และคืนไฟล์สำรองเมื่อผู้ใช้มีสิทธิ์แก้ไขไฟล์ แต่ไม่มีสิทธิ์เปลี่ยน ACL\n- คืนโปรแกรม Portable รุ่นเดิมเมื่อเปิดโปรแกรมหลังอัปเดตแล้วปิดทันทีซ้ำหลายครั้ง",
+  "size": 3229696,
+  "sha256": "edc82a42625840dfc5d8cd9899029ec97922b3fbb14c6ecbe85eeadf616e2873",
+  "signature": "01f9be0a7a6542a753b68734f9379ce3df1e8e9946a69c86096cec4aedf2fdb33445cb9e1674a23a0c72f04e4c062c7c566e6fecb934b45c621c687616d796d3",
+  "portable_size": 5206016,
+  "portable_sha256": "7cdefa2c96b6619fedf7bd5ab45f48a3cc7ca18b2ff724693cab9f8d70beed0d",
+  "portable_signature": "15646697d464ed144e794536c1533e8ddf079775f9d4ffb2e379a880ca3ff7383e1fa9eb89c223211da149b343d1537970be41102da8a7a209b3c472b1f745c4"
+}

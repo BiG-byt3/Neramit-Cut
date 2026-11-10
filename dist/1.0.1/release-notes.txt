@@ -1,0 +1,12 @@
+Neramit Cut 1.0.1
+- Online updates for installed and portable copies through GitHub Releases.
+- Signed installer and portable downloads, verified with ECDSA P-256 and SHA-256.
+- Fix replacement and rollback when the current user has Modify permission without permission to change file ACLs.
+- Restore the previous portable executable when the updated program repeatedly exits immediately.
+
+---
+Neramit Cut 1.0.1
+- อัปเดตออนไลน์ผ่าน GitHub Releases รองรับทั้งรุ่นติดตั้งและ Portable
+- ตรวจลายเซ็น ECDSA P-256 และ SHA-256 ก่อนใช้งานไฟล์อัปเดต
+- แก้การแทนไฟล์และคืนไฟล์สำรองเมื่อผู้ใช้มีสิทธิ์แก้ไขไฟล์ แต่ไม่มีสิทธิ์เปลี่ยน ACL
+- คืนโปรแกรม Portable รุ่นเดิมเมื่อเปิดโปรแกรมหลังอัปเดตแล้วปิดทันทีซ้ำหลายครั้ง

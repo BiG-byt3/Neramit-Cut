@@ -1,0 +1,4 @@
+edc82a42625840dfc5d8cd9899029ec97922b3fbb14c6ecbe85eeadf616e2873  NeramitCut-Setup-1.0.1.exe
+7cdefa2c96b6619fedf7bd5ab45f48a3cc7ca18b2ff724693cab9f8d70beed0d  NeramitCut-1.0.1.exe
+81a22159dd8eff9226c29239fdc68710b58a089adcec3d050c6f0b93c96306b6  latest.json
+83a45c0fe0870000d25deca43537830d50ca4c8c20254e628f857273eda57074  release-notes.txt
