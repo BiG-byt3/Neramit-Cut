@@ -1,0 +1,58 @@
+[package]
+name = "neramit-cut"
+version = "1.0.1"
+edition = "2021"
+authors = ["BiGByte Studio"]
+description = "Neramit Cut - linear cutting optimizer"
+publish = false
+build = "build.rs"
+
+[[bin]]
+name = "NeramitCut"
+path = "src/main.rs"
+
+[dependencies]
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+csv = "1.4"
+image = { version = "0.25", default-features = false, features = ["png", "bmp"] }
+calamine = "0.37"
+rust_xlsxwriter = "0.100"
+# Thai shaping (tone marks above upper vowels), see src/ui/shape.rs
+rustybuzz = "0.20"
+
+[target.'cfg(windows)'.dependencies]
+windows-sys = { version = "0.61.2", features = [
+    "Win32_Foundation",
+    "Win32_Globalization",
+    "Win32_Graphics_Gdi",
+    "Win32_Graphics_GdiPlus",
+    "Win32_Graphics_Dwm",
+    "Win32_System_LibraryLoader",
+    "Win32_System_DataExchange",
+    "Win32_System_Memory",
+    "Win32_System_Com",
+    "Win32_System_Registry",
+    "Win32_Networking_WinHttp",
+    "Win32_Security_Cryptography",
+    "Win32_System_Threading",
+    "Win32_System_SystemInformation",
+    "Win32_UI_Controls",
+    "Win32_UI_Controls_Dialogs",
+    "Win32_UI_WindowsAndMessaging",
+    "Win32_UI_Input_KeyboardAndMouse",
+    "Win32_UI_Shell",
+    "Win32_UI_Shell_Common",
+    "Win32_UI_HiDpi",
+    "Win32_Storage_Xps",
+    "Win32_Storage_FileSystem",
+] }
+
+[build-dependencies]
+winresource = "0.1"
+
+[profile.release]
+opt-level = 3
+lto = "thin"
+codegen-units = 1
+strip = "symbols"

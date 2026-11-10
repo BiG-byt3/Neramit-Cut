@@ -1,0 +1,56 @@
+name: Windows build and test
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  windows:
+    runs-on: windows-latest
+    timeout-minutes: 30
+    defaults:
+      run:
+        shell: pwsh
+    env:
+      RUSTUP_TOOLCHAIN: stable-x86_64-pc-windows-gnu
+      CARGO_TERM_COLOR: always
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+      - name: Install GNU tools
+        id: msys2
+        uses: msys2/setup-msys2@ec48f7c5447b3140e2b088413ae3a55687bccb6e # v2
+        with:
+          msystem: MINGW64
+          update: true
+          install: mingw-w64-x86_64-gcc
+      - name: Configure Rust and resource compiler
+        env:
+          MSYS2_LOCATION: ${{ steps.msys2.outputs.msys2-location }}
+        run: |
+          rustup toolchain install stable-x86_64-pc-windows-gnu --profile minimal
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          $gnuBin = Join-Path $env:MSYS2_LOCATION 'mingw64\bin'
+          $gnuBin | Out-File -FilePath $env:GITHUB_PATH -Encoding utf8 -Append
+          "WINDRES=$(Join-Path $gnuBin 'windres.exe')" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
+      - name: Test application
+        run: cargo test --locked
+      - name: Build application
+        run: cargo build --release --locked
+      - name: Test installer
+        run: cargo test --manifest-path installer/Cargo.toml --locked
+      - name: Build installer
+        run: cargo build --manifest-path installer/Cargo.toml --release --locked
+      - name: Upload development executables
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7
+        with:
+          name: NeramitCut-windows-x64-ci-unsigned
+          if-no-files-found: error
+          retention-days: 14
+          path: |
+            target/release/NeramitCut.exe
+            installer/target/release/NeramitCut-Setup.exe

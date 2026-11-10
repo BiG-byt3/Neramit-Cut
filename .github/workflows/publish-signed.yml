@@ -1,0 +1,51 @@
+name: Publish signed update
+
+on:
+  push:
+    branches: ['release/v*']
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: publish-signed-update
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    runs-on: windows-latest
+    timeout-minutes: 15
+    permissions:
+      contents: write
+    defaults:
+      run:
+        shell: pwsh
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          persist-credentials: false
+      - name: Install manifest verification dependency
+        run: python -m pip install cryptography
+      - name: Require the matching release branch
+        run: |
+          @'
+          import os
+          import runpy
+          import sys
+
+          release = runpy.run_path('tools/release.py')
+          expected = 'release/v' + release['version']()
+          actual = os.environ['GITHUB_REF_NAME']
+          if os.environ['GITHUB_REF_TYPE'] != 'branch' or actual != expected:
+              sys.exit(f'Expected branch {expected}, got {actual}')
+          print(f'Publishing verified assets from {actual}')
+          '@ | python -
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+      - name: Verify committed release files
+        run: python tools/release.py verify
+      - name: Publish complete signed package
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+          NERAMIT_RELEASE_TARGET: ${{ github.sha }}
+        run: python tools/release.py publish

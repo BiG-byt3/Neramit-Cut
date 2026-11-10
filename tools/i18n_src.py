@@ -1,0 +1,191 @@
+# -*- coding: utf-8 -*-
+"""Source of assets/i18n.json: Neramit Cut Thai/English UI text.
+
+UI captions are written in English in src/forms.rs and translated through UI (English -> Thai).
+Messages are looked up by id (MSG). Thai is the default language of the program.
+"""
+import json, os
+
+# ------------------------------------------------------------------ UI captions (English -> Thai)
+UI = {
+    # app bar and menus
+    'File': 'ไฟล์', 'Settings': 'ตั้งค่า', 'Materials': 'วัสดุ', 'Latest solutions': 'ผลลัพธ์ล่าสุด', 'Help': 'ช่วยเหลือ',
+    'Open project…': 'เปิดโครงการ…', 'Save project…': 'บันทึกโครงการ…', 'Export part of the project…': 'ส่งออกบางส่วนของโครงการ…',
+    'Project notes…': 'บันทึกย่อโครงการ…', 'Restore a backup…': 'กู้คืนจากไฟล์สำรอง…', 'Back up everything…': 'สำรองข้อมูลทั้งหมด…', 'Exit': 'ออกจากโปรแกรม',
+    'Cutting settings…': 'ตั้งค่าการตัด…', 'Prices and fractions…': 'ราคาและเศษส่วน…', 'Appearance…': 'การแสดงผล…', 'Language…': 'ภาษา…',
+    'Working folder…': 'โฟลเดอร์ทำงาน…', 'Reset cutting settings': 'คืนค่าเริ่มต้นการตัด', 'Reset appearance': 'คืนค่าเริ่มต้นการแสดงผล',
+    'Keyboard shortcuts': 'แป้นพิมพ์ลัด', 'Check for updates…': 'ตรวจหาอัปเดต…', 'Check for updates': 'ตรวจหาอัปเดต', 'About Neramit Cut': 'เกี่ยวกับ Neramit Cut',
+    # data cards
+    'Pieces': 'ชิ้นงาน', 'Stock': 'สต็อก', 'Add': 'เพิ่ม', 'Delete row': 'ลบแถว', 'Open': 'เปิด', 'Save': 'บันทึก', 'Import': 'นำเข้า',
+    'Print': 'พิมพ์', 'Stickers': 'สติกเกอร์', 'Columns': 'คอลัมน์', 'More': 'เพิ่มเติม', 'History': 'ประวัติ', 'Tools': 'เครื่องมือ',
+    'Save as…': 'บันทึกเป็น…', 'Export to Excel / CSV…': 'ส่งออกเป็น Excel / CSV…', 'Open and append…': 'เปิดและต่อท้าย…',
+    'Import and append…': 'นำเข้าและต่อท้าย…', 'Merge identical pieces': 'รวมชิ้นงานที่เหมือนกัน', 'Clear all pieces': 'ล้างชิ้นงานทั้งหมด',
+    'Merge identical bars': 'รวมแท่งที่เหมือนกัน', 'Clear all stock': 'ล้างสต็อกทั้งหมด', 'Find the best stock length…': 'หาความยาวสต็อกที่ดีที่สุด…',
+    'Row number': 'ลำดับแถว', 'Angles': 'มุม', 'Customer': 'ลูกค้า', 'Price': 'ราคา', 'Priority': 'ลำดับความสำคัญ',
+    # results
+    'Cutting plan': 'แผนการตัด', 'Calculate': 'คำนวณ', 'Accept': 'ยืนยันผล', 'Piece table': 'ตารางชิ้นงาน', 'Export': 'ส่งออก',
+    'Display': 'การแสดงผล', 'Statistics': 'สถิติ', 'Pieces used': 'ชิ้นงานที่ใช้', 'Bars used': 'แท่งที่ใช้', 'Reusable offcuts': 'เศษที่นำกลับมาใช้',
+    'Scrap': 'เศษทิ้ง', 'By material': 'แยกตามวัสดุ', 'Summary': 'สรุป', 'Image (PNG)…': 'รูปภาพ (PNG)…', 'Table (Excel / CSV)…': 'ตาราง (Excel / CSV)…',
+    'Drawing (DXF)…': 'แบบ (DXF)…', 'Piece sizes': 'ขนาดชิ้นงาน', 'Piece labels': 'ป้ายชิ้นงาน', 'Offcut sizes': 'ขนาดเศษ', 'Show as text': 'แสดงเป็นข้อความ',
+    'Group identical pieces': 'รวมกลุ่มชิ้นที่เหมือนกัน', 'Customer names': 'ชื่อลูกค้า', 'Image': 'รูปภาพ', 'Height': 'ความสูง', 'Material': 'วัสดุ',
+    'Cutting formula (457+457+…)': 'สูตรการตัด (457+457+…)',
+    'Label': 'ป้าย', 'Offcut': 'เศษ', 'Offcut %': 'เศษ %', 'Mass': 'มวล', 'Area': 'พื้นที่', 'Copy table': 'คัดลอกตาราง',
+    # common buttons
+    'OK': 'ตกลง', 'Cancel': 'ยกเลิก', 'Close': 'ปิด', 'Search': 'ค้นหา', 'Stop': 'หยุด',
+    # cutting settings
+    'Cutting settings': 'ตั้งค่าการตัด', 'Saw and spacing': 'ใบเลื่อยและระยะห่าง', 'Saw blade thickness (kerf)': 'ความหนาใบเลื่อย (รอยตัด)',
+    'Space between pieces': 'ระยะห่างระหว่างชิ้น', 'Shortest reusable offcut': 'เศษสั้นสุดที่นำกลับมาใช้ได้', 'Most pieces per bar': 'จำนวนชิ้นสูงสุดต่อแท่ง',
+    '0 = no limit': '0 = ไม่จำกัด', 'Allowed offcut': 'เศษที่ยอมรับได้', 'Leave 0 to accept any offcut length.': 'ใส่ 0 เพื่อยอมรับเศษทุกความยาว',
+    'Offcut at least': 'เศษอย่างน้อย', 'or at most': 'หรือไม่เกิน', 'Optimization': 'การคำนวณ', 'Goal': 'เป้าหมาย', 'Least offcut': 'เศษน้อยที่สุด',
+    'Lowest price': 'ราคาต่ำที่สุด', 'Faster': 'เร็วขึ้น', 'More thorough': 'ละเอียดขึ้น', 'Calculation precision': 'ความละเอียดของการคำนวณ',
+    # prices and fractions
+    'Prices and fractions': 'ราคาและเศษส่วน', 'Fractions': 'เศษส่วน', 'Round fractions to': 'ปัดเศษส่วนเป็น', 'Stock price': 'ราคาสต็อก',
+    'Price per bar': 'ราคาต่อแท่ง', 'Price per unit of length': 'ราคาต่อหน่วยความยาว',
+    # appearance
+    'Appearance': 'การแสดงผล', 'Fonts': 'แบบอักษร', 'Cutting drawings': 'ภาพแผนการตัด', 'Tables': 'ตาราง',
+    'Noto Sans Thai is used for the program itself.': 'ตัวโปรแกรมใช้แบบอักษร Noto Sans Thai', 'Numbers': 'ตัวเลข',
+    'Decimals for sizes': 'ทศนิยมของขนาด', 'Decimals for percentages': 'ทศนิยมของเปอร์เซ็นต์', 'Decimals for prices': 'ทศนิยมของราคา',
+    'Merge identical pieces when opening files': 'รวมชิ้นงานที่เหมือนกันเมื่อเปิดไฟล์', 'Company': 'บริษัท', 'Company name': 'ชื่อบริษัท',
+    'Address': 'ที่อยู่', 'City': 'จังหวัด', 'Postal code': 'รหัสไปรษณีย์', 'Email': 'อีเมล', 'Phone': 'โทรศัพท์', 'Logo': 'โลโก้', 'Browse…': 'เลือกไฟล์…',
+    # language
+    'Language': 'ภาษา', 'Language of the program': 'ภาษาของโปรแกรม', 'The change applies at once.': 'มีผลทันที',
+    # materials / project / about
+    'Export to Excel / CSV': 'ส่งออกเป็น Excel / CSV', 'Project notes': 'บันทึกย่อโครงการ', 'Project contents': 'เนื้อหาโครงการ',
+    'Include': 'ข้อมูลที่รวมไว้', 'Results': 'ผลลัพธ์', 'Comment': 'หมายเหตุ', 'License': 'สัญญาอนุญาต', 'Open-source components': 'ส่วนประกอบโอเพนซอร์ส',
+    'Free to use': 'ใช้งานฟรี', 'Developer': 'ผู้จัดทำ', 'Typeface': 'แบบอักษร', 'Noto Sans Thai · SIL OFL 1.1': 'Noto Sans Thai · SIL OFL 1.1',
+    # history / find / import / tabular
+    'Stock history': 'ประวัติสต็อก', 'A copy of the stock is kept each time a solution is accepted.': 'โปรแกรมเก็บสำเนาสต็อกไว้ทุกครั้งที่ยืนยันผลการตัด',
+    'Preview': 'ตัวอย่าง', 'Restore this stock': 'กู้คืนสต็อกนี้', 'Find the best stock length': 'หาความยาวสต็อกที่ดีที่สุด',
+    'Tries every stock length in the range and ranks them by how well the pieces fit.': 'ทดลองทุกความยาวในช่วงที่กำหนด แล้วเรียงตามความคุ้มค่าของการใช้วัสดุ',
+    'Shortest': 'สั้นสุด', 'Longest': 'ยาวสุด', 'Step': 'ระยะเพิ่ม', 'Add to stock': 'เพิ่มลงสต็อก', 'Import data': 'นำเข้าข้อมูล',
+    'Check the columns. Click a column header to choose which column of the file it reads.': 'ตรวจสอบคอลัมน์ คลิกหัวคอลัมน์เพื่อเลือกว่าจะอ่านจากคอลัมน์ใดของไฟล์',
+    'Pieces of the bar': 'ชิ้นงานในแท่ง', 'Positions (top)': 'ตำแหน่ง (ด้านบน)', 'Positions (bottom)': 'ตำแหน่ง (ด้านล่าง)',
+    # stickers
+    'Print on each label': 'ข้อมูลบนสติกเกอร์', 'Length': 'ความยาว', "Today's date": 'วันที่วันนี้', 'Custom text': 'ข้อความเพิ่มเติม',
+    'Sheet layout': 'การจัดหน้ากระดาษ', 'Rows per sheet': 'จำนวนแถวต่อแผ่น', 'Columns per sheet': 'จำนวนคอลัมน์ต่อแผ่น', 'Font': 'แบบอักษร',
+    'Paper margins (%)': 'ขอบกระดาษ (%)', 'Left': 'ซ้าย', 'Right': 'ขวา', 'Top': 'บน', 'Bottom': 'ล่าง', 'Inside each label (%)': 'ขอบด้านในสติกเกอร์ (%)',
+    'Stock stickers': 'สติกเกอร์สต็อก', 'Piece stickers': 'สติกเกอร์ชิ้นงาน',
+    # DXF
+    'Export DXF': 'ส่งออก DXF', 'Bars': 'แท่ง', 'Outline': 'เส้นขอบ', 'Bar information': 'ข้อมูลแท่ง', 'Sizes': 'ขนาด', 'Labels': 'ป้าย',
+    'Offcuts': 'เศษ', 'Drawing': 'แบบ', 'Unit': 'หน่วย', 'Text height': 'ความสูงตัวอักษร', 'Layer names': 'ชื่อเลเยอร์', 'Text': 'ข้อความ',
+    'Unitless': 'ไม่มีหน่วย', 'Inches': 'นิ้ว', 'Feet': 'ฟุต', 'Miles': 'ไมล์', 'Millimeters': 'มิลลิเมตร', 'Centimeters': 'เซนติเมตร',
+    'Meters': 'เมตร', 'Kilometers': 'กิโลเมตร',
+    # print statistics / progress
+    'Print statistics': 'พิมพ์สถิติ', 'Tables to print': 'ตารางที่จะพิมพ์', 'Calculating': 'กำลังคำนวณ', 'Calculating the cutting plan…': 'กำลังคำนวณแผนการตัด…',
+    'English': 'English', 'ไทย': 'ไทย', 'Neramit Cut made by BiGByte Studio': 'Neramit Cut made by BiGByte Studio', 'Calculate (F9)': 'คำนวณ (F9)',
+    # command bar and card menus (3.1)
+    'Open project': 'เปิดโครงการ', 'Save project': 'บันทึกโครงการ',
+    'Open project (Ctrl+O)': 'เปิดโครงการ (Ctrl+O)', 'Save project (Ctrl+S)': 'บันทึกโครงการ (Ctrl+S)',
+    'Delete': 'ลบ', 'Add a row': 'เพิ่มแถวใหม่', 'Delete the selected row': 'ลบแถวที่เลือก', 'Import from Excel / CSV': 'นำเข้าจาก Excel / CSV',
+    'Open pieces list…': 'เปิดรายการชิ้นงาน…', 'Save pieces list': 'บันทึกรายการชิ้นงาน',
+    'Print the table…': 'พิมพ์ตาราง…', 'Print stickers…': 'พิมพ์สติกเกอร์…', 'Stock history…': 'ประวัติสต็อก…',
+    'Print the cutting plan…': 'พิมพ์แผนการตัด…', 'Piece table…': 'ตารางชิ้นงาน…', 'Table columns': 'คอลัมน์ในตาราง',
+    # DOICUT review (1.1)
+    'Weight per metre': 'น้ำหนักต่อเมตร', 'The first row is a header (column names)': 'แถวแรกเป็นหัวตาราง (ชื่อคอลัมน์)',
+    'Check the columns. Click a column header to choose which column of the file it reads. Untick the rows you do not want.': 'ตรวจสอบคอลัมน์ คลิกหัวคอลัมน์เพื่อเลือกว่าจะอ่านจากคอลัมน์ใดของไฟล์ เอาติ๊กออกจากแถวที่ไม่ต้องการนำเข้า',
+    'Type another…': 'พิมพ์ชื่ออื่น…', 'PDF report': 'รายงาน PDF', 'Report': 'รายงาน', 'Select': 'เลือก', 'The cutting plan report (PDF) and the other exports': 'รายงานแผนการตัด (PDF) และการส่งออกอื่น ๆ', 'Cutting plan report (PDF)…': 'รายงานแผนการตัด (PDF)…', 'Save the cutting plan report as a PDF file': 'บันทึกรายงานแผนการตัดเป็นไฟล์ PDF', 'Report (PDF)…': 'รายงาน (PDF)…', 'Job name, e.g. Floor 1 slab, building A': 'ชื่องานที่ตัด เช่น พื้นชั้น 1 อาคาร GYM (ZONE A)',
+}
+
+# ------------------------------------------------------------------ messages (id -> English, Thai)
+MSG = {}
+
+
+def msg(key, en, th):
+    MSG[key] = [en, th]
+
+
+for k, en, th in [
+    # table columns
+    ('col_length', 'Length', 'ความยาว'), ('col_quantity', 'Quantity', 'จำนวน'), ('col_height', 'Height', 'ความสูง'),
+    ('col_material', 'Material', 'วัสดุ'), ('col_label', 'Label', 'ป้าย'), ('col_customer', 'Customer', 'ลูกค้า'),
+    ('col_price', 'Price', 'ราคา'), ('col_priority', 'Priority', 'ลำดับ'), ('col_angle', 'Angle', 'มุม'),
+    ('col_image', 'Image', 'รูปภาพ'), ('col_waste', 'Offcut', 'เศษ'), ('col_mass', 'Mass', 'มวล'), ('col_area', 'Area', 'พื้นที่'),
+    ('col_pieces', 'Cutting plan', 'แผนการตัด'), ('col_pattern', 'Cutting formula', 'สูตรการตัด'), ('col_weight_m', 'Weight/m', 'น้ำหนัก/ม.'), ('col_total_weight', 'Total weight (kg)', 'น้ำหนักรวม (กก.)'), ('col_type', 'Type', 'ชนิด'),
+    ('job_name', 'Job name', 'ชื่องาน'), ('job_name_hint', 'Name of the job, e.g. Floor 1 slab, building A (zone A)', 'ชื่องานที่ตัด เช่น พื้นชั้น 1 อาคาร GYM (ZONE A)'),
+    ('bars_used_line', '{0} length {1} {2}: {3} bars', '{0} ยาว {1} {2} จำนวน {3} เส้น'), ('unit_m', 'm', 'ม.'), ('unit_mm', 'mm', 'มม.'),
+    ('report_date', 'Date', 'วันที่'), ('no_plan_yet', 'Calculate a cutting plan first.', 'กรุณากด คำนวณ เพื่อสร้างแผนการตัดก่อน'),
+    ('pdf_printer_missing', 'The PDF could not be made: Windows\' "Microsoft Print to PDF" printer is not available.', 'สร้าง PDF ไม่ได้: ไม่พบเครื่องพิมพ์ "Microsoft Print to PDF" ของ Windows'), ('summary_sheet', 'Summary', 'สรุป'), ('col_total_used_length', 'Length of pieces', 'ความยาวชิ้นงานรวม'),
+    ('col_size_used_bars', 'Length of bars', 'ความยาวแท่งรวม'), ('col_reused_waste', 'Reusable offcuts', 'เศษที่นำกลับมาใช้'),
+    ('col_disposed_waste', 'Scrap', 'เศษทิ้ง'), ('col_parameter', 'Item', 'รายการ'), ('col_value', 'Value', 'ค่า'),
+    ('col_name', 'Name', 'ชื่อ'), ('col_rot_x', 'Turn X', 'หมุนแกน X'), ('col_rot_y', 'Turn Y', 'หมุนแกน Y'), ('col_rot_z', 'Turn Z', 'หมุนแกน Z'),
+    ('col_mass_len', 'Mass / length', 'มวลต่อความยาว'), ('col_area_len', 'Area / length', 'พื้นที่ต่อความยาว'),
+    ('col_saved_at', 'Saved at', 'บันทึกเมื่อ'), ('col_bars_needed', 'Bars needed', 'จำนวนแท่ง'), ('col_utilization', 'Material used', 'การใช้วัสดุ'),
+    ('col_start_bottom', 'Start (bottom)', 'เริ่ม (ล่าง)'), ('col_start_top', 'Start (top)', 'เริ่ม (บน)'),
+    ('col_end_bottom', 'End (bottom)', 'สิ้นสุด (ล่าง)'), ('col_end_top', 'End (top)', 'สิ้นสุด (บน)'),
+    ('number_of_pieces', 'Number of pieces', 'จำนวนชิ้น'), ('running_time', 'Calculation time', 'เวลาคำนวณ'),
+    ('utilized_parts', 'Material used', 'การใช้วัสดุ'), ('bars', 'Bars', 'จำนวนแท่ง'),
+    ('pieces', 'Pieces', 'ชิ้นงาน'), ('stock', 'Stock', 'สต็อก'), ('materials', 'Materials', 'วัสดุ'),
+    # toolbar states
+    ('accept', 'Accept', 'ยืนยันผล'), ('undo_accept', 'Undo', 'ยกเลิกการยืนยัน'),
+    # summary tiles and status bar
+    ('kpi_bars', 'Bars to cut', 'จำนวนแท่งที่ใช้'), ('kpi_util', 'Material used', 'การใช้วัสดุ'), ('kpi_waste', 'Total offcut', 'เศษรวม'),
+    ('kpi_cost', 'Cost', 'ค่าใช้จ่าย'), ('kpi_time', 'Calculation time', 'เวลาคำนวณ'), ('kpi_unplaced', 'Pieces not placed', 'ชิ้นที่ตัดไม่ได้'),
+    ('ready', 'Ready', 'พร้อมใช้งาน'),
+    ('card_parts', '{0} rows  ·  {1} pieces  ·  total length {2}', '{0} รายการ  ·  {1} ชิ้น  ·  ความยาวรวม {2}'),
+    ('card_stock', '{0} rows  ·  {1} bars  ·  total length {2}', '{0} รายการ  ·  {1} แท่ง  ·  ความยาวรวม {2}'),
+    ('card_used', 'Used in the calculation: {0} of {1}', 'ใช้คำนวณ {0} จาก {1} รายการ'),
+    ('status_solved', 'Cutting plan ready: {0} bars, {1} s', 'แผนการตัดพร้อมแล้ว: ใช้ {0} แท่ง ({1} วินาที)'),
+    ('status_accepted', 'Accepted: cut pieces removed, offcuts added to the stock.', 'ยืนยันผลแล้ว: นำชิ้นงานที่ตัดออกและเพิ่มเศษเข้าสต็อก'),
+    ('status_undone', 'Acceptance undone.', 'ยกเลิกการยืนยันผลแล้ว'),
+    ('status_saved_settings', 'Cutting settings saved.', 'บันทึกการตั้งค่าการตัดแล้ว'),
+    ('progress_pieces', 'Placed {0} of {1} pieces', 'จัดวางแล้ว {0} จาก {1} ชิ้น'),
+    # empty states
+    ('empty_parts', 'No pieces yet. Click Add or Import to start.', 'ยังไม่มีชิ้นงาน กด เพิ่ม หรือ นำเข้า เพื่อเริ่มต้น'),
+    ('empty_stock', 'No stock yet. Add the bars you have.', 'ยังไม่มีสต็อก เพิ่มแท่งวัสดุที่มีอยู่'),
+    ('empty_results', 'No cutting plan yet.\nFill in the pieces (1) and the stock (2), then press Calculate (F9).', 'ยังไม่มีแผนการตัด\nกรอกชิ้นงาน (1) และสต็อก (2) แล้วกด คำนวณ (F9)'),
+    ('empty_materials', 'No materials. Click Add.', 'ยังไม่มีวัสดุ กด เพิ่ม'),
+    ('empty_history', 'No saved stock yet.', 'ยังไม่มีสต็อกที่บันทึกไว้'),
+    ('empty_find', 'Set the range and press Search.', 'กำหนดช่วงแล้วกด ค้นหา'),
+    # input checks
+    ('not_a_number', 'Enter a number, for example 12.5 or 12 1/2.', 'กรุณาใส่ตัวเลข เช่น 12.5 หรือ 12 1/2'),
+    ('not_an_integer', 'Enter a whole number.', 'กรุณาใส่จำนวนเต็ม'),
+    ('must_be_positive', 'The value must be greater than zero.', 'ค่าต้องมากกว่าศูนย์'),
+    ('must_not_be_negative', 'The value cannot be negative.', 'ค่าต้องไม่ติดลบ'),
+    ('number_too_big', 'The number is too large or has too many decimals.', 'ตัวเลขมากเกินไป หรือมีทศนิยมมากเกินไป'),
+    ('range_invalid', 'The longest length must not be shorter than the shortest.', 'ความยาวสูงสุดต้องไม่น้อยกว่าความยาวต่ำสุด'),
+    ('invalid_piece', 'Angles must be between 0 and 180 degrees.', 'มุมต้องอยู่ระหว่าง 0 ถึง 180 องศา'),
+    ('angles_need_height', 'Pieces cut at an angle need a height greater than 0.', 'ชิ้นงานที่ตัดเป็นมุมต้องระบุความสูงมากกว่า 0'),
+    # calculation
+    ('need_piece', 'Add at least one piece.', 'ต้องมีชิ้นงานอย่างน้อยหนึ่งรายการ'),
+    ('need_stock', 'Add at least one stock bar.', 'ต้องมีแท่งสต็อกอย่างน้อยหนึ่งรายการ'),
+    ('materials_mismatch', 'No piece can be cut: the materials of the pieces are not in the stock. A piece is cut only from stock with the same material name.',
+     'ตัดชิ้นงานไม่ได้ เพราะไม่มีวัสดุของชิ้นงานในสต็อก ชิ้นงานจะตัดได้จากสต็อกที่มีชื่อวัสดุเดียวกันเท่านั้น'),
+    ('materials_missing', 'Some pieces were not placed: their material is not in the stock.', 'มีชิ้นงานบางส่วนที่จัดวางไม่ได้ เพราะไม่มีวัสดุนั้นในสต็อก'),
+    ('settings_unsatisfied', 'Some pieces were not placed: there is not enough stock, or the settings cannot be met.',
+     'มีชิ้นงานบางส่วนที่จัดวางไม่ได้ เพราะสต็อกไม่พอ หรือไม่สามารถทำตามการตั้งค่าได้'),
+    ('no_solutions', 'There are no saved cutting plans yet.', 'ยังไม่มีแผนการตัดที่บันทึกไว้'),
+    # confirmations
+    ('restore_defaults', 'Reset all values to their defaults? Your changes will be lost.', 'คืนค่าทั้งหมดเป็นค่าเริ่มต้นหรือไม่? การเปลี่ยนแปลงของคุณจะหายไป'),
+    ('parts_changed', 'The pieces have changed. Save them first?', 'รายการชิ้นงานมีการเปลี่ยนแปลง ต้องการบันทึกก่อนหรือไม่?'),
+    ('delete_all', 'Delete all rows?', 'ลบทุกแถวหรือไม่?'),
+    ('delete_piece', 'Delete the selected row?', 'ลบแถวที่เลือกหรือไม่?'),
+    ('delete_material', 'Delete this material?', 'ลบวัสดุนี้หรือไม่?'),
+    ('material_name_empty', 'Every material needs a name.', 'วัสดุทุกรายการต้องมีชื่อ'),
+    ('material_duplicate', 'Material names must be different.', 'ชื่อวัสดุต้องไม่ซ้ำกัน'),
+    # files
+    ('cannot_save', 'The file cannot be saved.', 'บันทึกไฟล์ไม่ได้'),
+    ('cannot_open', 'The file cannot be opened.', 'เปิดไฟล์ไม่ได้'),
+    ('data_empty', 'The file has no data.', 'ไม่มีข้อมูลในไฟล์'),
+    ('import_skip', 'Do not import', 'ไม่ต้องนำเข้า'), ('import_column', 'Column', 'คอลัมน์'),
+    ('project_created', 'created {0}', 'สร้างเมื่อ {0}'),
+    ('tabular_title', 'Pieces of the bar {0} · {1} · ×{2}', 'ชิ้นงานในแท่ง {0} · {1} · ×{2}'),
+    ('adhesive_labels', 'Stickers', 'สติกเกอร์'),
+    ('labels_summary', '{0} stickers\n{1} per sheet\n{2} sheets', 'สติกเกอร์ {0} ดวง\n{1} ดวงต่อแผ่น\nทั้งหมด {2} แผ่น'),
+    ('sample_company', 'Your company', 'บริษัทของคุณ'), ('sample_label', 'Door frame', 'วงกบประตู'),
+    ('sample_customer', 'Customer', 'ลูกค้า'), ('sample_material', 'Aluminium', 'อะลูมิเนียม'),
+    # dialogs
+    ('error', 'Error', 'ข้อผิดพลาด'), ('confirm', 'Confirm', 'ยืนยัน'), ('information', 'Information', 'ข้อมูล'), ('warning', 'Warning', 'คำเตือน'),
+    ('version', 'Version', 'เวอร์ชัน'), ('tagline', 'Linear cutting optimizer', 'โปรแกรมคำนวณการตัดวัสดุเส้นตรง'),
+    ('shortcuts', 'F9  Calculate the cutting plan\nCtrl+O  Open a project\nCtrl+S  Save the project\nCtrl+P  Print the cutting plan\nInsert  Add a row\nF2 or Enter  Edit a cell\nDelete  Clear a cell\nCtrl+V  Paste rows copied from Excel',
+     'F9  คำนวณแผนการตัด\nCtrl+O  เปิดโครงการ\nCtrl+S  บันทึกโครงการ\nCtrl+P  พิมพ์แผนการตัด\nInsert  เพิ่มแถว\nF2 หรือ Enter  แก้ไขเซลล์\nDelete  ล้างเซลล์\nCtrl+V  วางแถวที่คัดลอกจาก Excel'),
+    ('license_text', 'Neramit Cut is free to use.\nThe software is provided "as is", without warranty of any kind. Check the results before cutting material.',
+     'Neramit Cut ใช้งานได้ฟรี\nซอฟต์แวร์นี้ให้บริการ "ตามสภาพ" โดยไม่มีการรับประกันใด ๆ โปรดตรวจสอบผลลัพธ์ก่อนตัดวัสดุจริง'),
+    ('libraries_text', 'Neramit Cut is made with Rust and these components:\nwindows-sys, serde, serde_json, csv, calamine, rust_xlsxwriter, image, rustybuzz, winresource\n\nTypeface: Noto Sans Thai, SIL Open Font License 1.1',
+     'Neramit Cut พัฒนาด้วยภาษา Rust และใช้ส่วนประกอบเหล่านี้:\nwindows-sys, serde, serde_json, csv, calamine, rust_xlsxwriter, image, rustybuzz, winresource\n\nแบบอักษร: Noto Sans Thai สัญญาอนุญาต SIL Open Font License 1.1'),
+]:
+    msg(k, en, th)
+
+out = {'forms': {}, 'msg': MSG, 'dict': UI}
+root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+json.dump(out, open(os.path.join(root, 'assets', 'i18n.json'), 'w', encoding='utf-8'), ensure_ascii=False, indent=1)
+print(len(MSG), 'messages', len(UI), 'captions')

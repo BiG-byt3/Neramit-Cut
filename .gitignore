@@ -1,0 +1,21 @@
+# Build outputs and local previews
+/target/
+/installer/target/
+/dist/
+/mine/
+/tools/logo/archive/
+__pycache__/
+*.py[cod]
+*.log
+
+# Local editor settings and release credentials
+/.vscode/
+/.idea/
+/.neramit-release/
+.env
+.env.*
+*.pem
+*.key
+*.p12
+*.pfx
+

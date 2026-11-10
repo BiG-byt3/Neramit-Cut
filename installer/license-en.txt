@@ -1,0 +1,37 @@
+# Neramit Cut - End User License Agreement
+Copyright (c) 2026 BiGByte Studio. All rights reserved.
+
+## In short
+- Free to use on your computers.
+- Free to share with others, but never for sale or for a fee.
+- Your files are yours; the Software does not send them anywhere.
+- No warranty: keep backups of important files.
+
+This summary is only there to help you read faster. The full text below is the agreement that applies.
+
+Please read this agreement carefully before installing Neramit Cut (the "Software"). By installing or using the Software you agree to these terms. If you do not agree, select "I do not accept the agreement" and do not install the Software.
+
+## 1. License
+BiGByte Studio grants you a non-exclusive, non-transferable license to install and use the Software on computers that you own or control.
+
+## 2. Sharing and restrictions
+You may share the Software with others free of charge, for example by sending it to colleagues, posting it in a group or publishing it on a website, provided that:
+- you share the files exactly as published by BiGByte Studio, unmodified and not bundled with other software;
+- you do not charge a fee or ask for anything in return; and
+- the people you share it with use the Software under this agreement, as you do.
+You may not sell, rent, lease or sublicense the Software, or remove its copyright notices.
+
+## 3. Your files and privacy
+Cutting jobs, materials and reports you create with the Software belong to you. The Software works offline and does not send your files anywhere.
+
+## 4. Open-source components
+The Software includes open-source components that are licensed under their own terms. See the About window of Neramit Cut.
+
+## 5. No warranty
+The Software is provided "as is", without warranty of any kind. Keep backups of important files.
+
+## 6. Limitation of liability
+To the extent permitted by law, BiGByte Studio is not liable for any damage arising from the use of, or inability to use, the Software.
+
+## 7. Updates
+These terms also apply to updates of the Software.
