@@ -1,0 +1,7 @@
+* text=auto eol=lf
+*.exe binary
+*.ico binary
+*.ttf binary
+*.png binary
+# The checksum list covers the exact bytes of every signed release asset.
+dist/** -text
